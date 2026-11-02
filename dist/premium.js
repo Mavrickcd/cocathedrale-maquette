@@ -143,7 +143,7 @@
 
       /* 6. Photos dévoilées comme un rideau, avec léger zoom arrière lié au défilement */
       if (full) {
-        $$('.community-image, .heritage-image, .strip-photo').forEach(frame => {
+        $$('.community-image, .heritage-image, .photo-strip').forEach(frame => {
           gsap.fromTo(frame, { clipPath: 'inset(100% 0% 0% 0%)' },
             { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power3.inOut', clearProps: 'clipPath', scrollTrigger: trigger({ start: 'top 88%' }) });
         });
@@ -154,7 +154,7 @@
         gsap.fromTo('.donation-backdrop', { yPercent: -6 }, { yPercent: 6, ease: 'none',
           scrollTrigger: { trigger: '.donation-section', start: 'top bottom', end: 'bottom top', scrub: true } });
       } else {
-        $$('.community-image, .heritage-image, .strip-photo').forEach(frame => {
+        $$('.community-image, .heritage-image, .photo-strip').forEach(frame => {
           gsap.from(frame, { opacity: 0, duration: 1, scrollTrigger: trigger({ start: 'top 88%' }) });
         });
       }
@@ -175,49 +175,55 @@
         onLeaveBack: batch => batch.forEach(el => el.classList.remove('is-drawn'))
       });
 
-      /* 9. Section vidéo : le cadre s'ouvre en plein écran pendant que la section reste épinglée */
+      /* 9. Diaporama : une copie des photos à la suite pour que la boucle CSS (droite à gauche) ne coupe jamais */
+      const track = document.querySelector('.strip-track');
+      const clones = full ? [...track.children].map(li => {
+        const copy = li.cloneNode(true);
+        copy.setAttribute('aria-hidden', 'true');
+        track.appendChild(copy);
+        return copy;
+      }) : [];
+
+      /* 10. Portes : la section reste épinglée, le cadre s'ouvre en plein écran et la vidéo avance avec le défilement */
       const stage = document.querySelector('.film-stage');
       const frame = document.querySelector('.film-frame');
       const video = document.querySelector('.film-video');
       const caption = document.querySelector('.film-caption');
-      const toggle = document.querySelector('.film-toggle');
-      let userPaused = !full; // « Réduire les animations » : la vidéo reste à l'arrêt tant qu'on ne la lance pas
 
-      const syncToggle = () => {
-        const playing = !video.paused;
-        toggle.setAttribute('aria-label', playing ? 'Mettre la vidéo en pause' : 'Lire la vidéo');
-        toggle.firstElementChild.textContent = playing ? '❚❚' : '▶';
-      };
-      const play = () => { if (!userPaused) video.play().catch(() => { }); };
-      const onToggle = () => {
-        userPaused = !video.paused;
-        if (userPaused) video.pause(); else video.play().catch(() => { });
-      };
-      toggle.addEventListener('click', onToggle);
-      video.addEventListener('play', syncToggle);
-      video.addEventListener('pause', syncToggle);
-      syncToggle();
-
-      ScrollTrigger.create({ trigger: stage, start: 'top 85%', end: 'bottom 15%', onEnter: play, onEnterBack: play, onLeave: () => video.pause(), onLeaveBack: () => video.pause() });
-
-      if (full && desktop) {
+      if (full) {
+        // Charge la vidéo un peu avant d'arriver; lecture muette arrêtée aussitôt pour que Safari iOS affiche les images au défilement.
+        ScrollTrigger.create({ trigger: stage, start: 'top 250%', once: true, onEnter: () => {
+          video.preload = 'auto';
+          video.load();
+          video.addEventListener('loadeddata', () => video.play().then(() => video.pause()).catch(() => { }), { once: true });
+        } });
+        // Secours si la vidéo ne peut pas être lue : fondu des portes fermées vers la nef.
+        const endImg = document.querySelector('.film-end');
+        let fallback = !video.canPlayType('video/mp4; codecs="avc1.640028"');
+        video.querySelector('source').addEventListener('error', () => { fallback = true; seek(); });
+        const state = { t: 0 };
+        const seek = () => {
+          if (fallback) {
+            endImg.style.display = 'block';
+            endImg.style.opacity = Math.min(Math.max((state.t - 0.35) / 0.4, 0), 1);
+            return;
+          }
+          if (!video.duration) return;
+          const time = state.t * (video.duration - 0.05);
+          if (Math.abs(video.currentTime - time) > 0.01) video.currentTime = time;
+        };
         const tl = gsap.timeline({ defaults: { ease: 'none' },
-          scrollTrigger: { trigger: stage, start: 'top top', end: '+=110%', pin: true, scrub: 0.6, anticipatePin: 1 } });
-        tl.fromTo(frame, { clipPath: 'inset(16% 22% 16% 22%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6 }, 0)
-          .fromTo(video, { scale: 1.18 }, { scale: 1, duration: 1 }, 0)
-          .fromTo(caption, { opacity: 0, y: 56 }, { opacity: 1, y: 0, duration: 0.4 }, 0.45);
-      } else if (full) {
-        gsap.fromTo(frame, { clipPath: 'inset(12% 8% 12% 8%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none',
-          scrollTrigger: { trigger: stage, start: 'top 90%', end: 'top 30%', scrub: 0.6 } });
-        gsap.fromTo(caption, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, ease: EASE, scrollTrigger: trigger({ trigger: stage, start: 'top 55%' }) });
+          scrollTrigger: { trigger: stage, start: 'top top', end: desktop ? '+=160%' : '+=130%', pin: true, scrub: 0.5, anticipatePin: 1 } });
+        tl.fromTo(frame, { clipPath: desktop ? 'inset(14% 26% 14% 26%)' : 'inset(12% 10% 12% 10%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.25 }, 0)
+          .fromTo(state, { t: 0 }, { t: 1, duration: 0.85, onUpdate: seek }, 0.1)
+          .fromTo(caption, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.15 }, 0.82);
       } else {
         gsap.from(caption, { opacity: 0, duration: 1, scrollTrigger: trigger({ trigger: stage, start: 'top 60%' }) });
       }
 
       return () => {
-        toggle.removeEventListener('click', onToggle);
-        video.removeEventListener('play', syncToggle);
-        video.removeEventListener('pause', syncToggle);
+        clones.forEach(c => c.remove());
+        document.querySelector('.film-end').removeAttribute('style');
         video.pause();
         splits.forEach(s => s.revert());
         root.classList.remove('hero-pending');

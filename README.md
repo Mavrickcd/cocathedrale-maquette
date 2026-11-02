@@ -16,6 +16,10 @@ Ouvrir `http://localhost:4173/`.
 
 Le sélecteur « Version S / P » (en-tête, ou menu sur mobile) bascule en direct entre :
 - **Statique (S)** : site basique, sans animation, première image de la bannière seulement, sans vidéo.
-- **Premium (P)** : diaporama de 3 images dans la bannière, section vidéo (`#visite`), animations GSAP au défilement (`premium.js`, `premium.css`, bibliothèques locales dans `vendor/`).
+- **Premium (P)** : diaporama de 3 images dans la bannière, section des portes (`#visite`), photos qui défilent de droite à gauche (`#gallery`), animations GSAP au défilement (`premium.js`, `premium.css`, bibliothèques locales dans `vendor/`).
 
-`?version=statique` ou `?version=premium` dans l'adresse force le choix. La vidéo attendue est `assets/video-visite.mp4` (tant qu'elle manque, la photo d'affiche s'affiche).
+`?version=statique` ou `?version=premium` dans l'adresse force le choix.
+
+Section des portes : `assets/portes.mp4` avance avec le défilement (section épinglée). La vidéo est encodée avec une image clé à chaque image (`ffmpeg -g 1`) pour que le retour en arrière reste fluide. `portes-debut.jpg` sert d'affiche, `portes-fin.jpg` remplace la vidéo quand l'appareil réduit les animations.
+
+Galerie : `assets/galerie/galerie-01.jpg` à `-12.jpg` (800 × 1000). En statique, seules les 4 premières s'affichent.
