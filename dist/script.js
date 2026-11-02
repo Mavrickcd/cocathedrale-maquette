@@ -1,10 +1,44 @@
 const header=document.querySelector('.site-header');
 const menuToggle=document.querySelector('.menu-toggle');
 const mobileNav=document.querySelector('.mobile-nav');
+const menuClose=document.querySelector('.menu-close');
+const typographyOption2=document.getElementById('typography-option-2');
+const fontButtons=document.querySelectorAll('[data-font-option]');
+
+function setFontOption(option){
+  const selected=option==='2'?'2':'1';
+  typographyOption2.media=selected==='2'?'all':'not all';
+  fontButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.fontOption===selected)));
+  try{localStorage.setItem('cocathedrale-font-option',selected)}catch{}
+}
+let savedFontOption='1';
+try{savedFontOption=localStorage.getItem('cocathedrale-font-option')||'1'}catch{}
+setFontOption(savedFontOption);
+fontButtons.forEach(button=>button.addEventListener('click',()=>setFontOption(button.dataset.fontOption)));
+
 function syncHeader(){header.classList.toggle('is-scrolled',window.scrollY>38)}
 syncHeader();window.addEventListener('scroll',syncHeader,{passive:true});
-menuToggle.addEventListener('click',()=>{const opened=menuToggle.getAttribute('aria-expanded')==='true';menuToggle.setAttribute('aria-expanded',String(!opened));mobileNav.hidden=opened;menuToggle.setAttribute('aria-label',opened?'Ouvrir le menu':'Fermer le menu')});
-mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileNav.hidden=true;menuToggle.setAttribute('aria-expanded','false');menuToggle.setAttribute('aria-label','Ouvrir le menu')}));
+function setMenuOpen(open,{returnFocus=false}={}){
+  mobileNav.hidden=!open;
+  menuToggle.setAttribute('aria-expanded',String(open));
+  menuToggle.setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu');
+  document.body.classList.toggle('menu-open',open);
+  if(open)menuClose.focus();
+  else if(returnFocus)menuToggle.focus();
+}
+menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('aria-expanded')!=='true'));
+menuClose.addEventListener('click',()=>setMenuOpen(false,{returnFocus:true}));
+mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenuOpen(false)));
+document.addEventListener('keydown',event=>{
+  if(mobileNav.hidden)return;
+  if(event.key==='Escape'){setMenuOpen(false,{returnFocus:true});return}
+  if(event.key!=='Tab')return;
+  const focusable=[...mobileNav.querySelectorAll('button,a[href]')];
+  const first=focusable[0],last=focusable[focusable.length-1];
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+});
+window.addEventListener('resize',()=>{if(window.innerWidth>1050&&!mobileNav.hidden)setMenuOpen(false)});
 
 const calendarMonth=document.getElementById('calendar-month');
 const calendarDays=document.getElementById('calendar-days');
@@ -21,8 +55,8 @@ const allEvents=document.getElementById('all-events');
 allEvents.addEventListener('click',()=>{moreEvents.hidden=!moreEvents.hidden;allEvents.setAttribute('aria-expanded',String(!moreEvents.hidden));allEvents.firstChild.textContent=moreEvents.hidden?'Voir toutes les activités ':'Réduire la liste '});
 
 const events={
-  concert:{category:'Musique & patrimoine · 8 novembre',title:'Concert à la cocathédrale',body:'Une soirée de musique dans un lieu où l’architecture et l’acoustique se rencontrent. Communiquez avec la paroisse pour les détails.'},
-  fromages:{category:'Campagne de financement · 15 novembre',title:'Vente de fromages',body:'Une occasion de soutenir les activités paroissiales tout en se retrouvant autour d’un projet gourmand. Les modalités seront précisées par la paroisse.'},
+  concert:{category:'Musique & patrimoine · 8 novembre',title:'Concert à la cocathédrale',body:'Une soirée de musique dans un lieu où l'architecture et l'acoustique se rencontrent. Communiquez avec la paroisse pour les détails.'},
+  fromages:{category:'Campagne de financement · 15 novembre',title:'Vente de fromages',body:'Une occasion de soutenir les activités paroissiales tout en se retrouvant autour d'un projet gourmand. Les modalités seront précisées par la paroisse.'},
   cafe:{category:'Vie communautaire · 22 novembre',title:'Café-rencontre du dimanche',body:'Après la célébration, prenez le temps de jaser, de rencontrer les gens du quartier et de partager un moment tout simple.'},
   benevoles:{category:'Communauté · 29 novembre',title:'Rencontre des bénévoles',body:'Venez découvrir les possibilités de participation à la vie de la cocathédrale et rencontrer les personnes qui la font vivre.'},
   don:{category:'Soutenir la paroisse',title:'Faire un don',body:'Merci de votre intérêt à soutenir la paroisse. Communiquez avec le bureau paroissial pour connaître les façons de contribuer.'}

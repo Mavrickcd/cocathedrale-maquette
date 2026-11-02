@@ -11,7 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/cocathedrale-hero.jpg">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="typography.css">
+  <link rel="stylesheet" href="typography.css" id="typography-option-2" media="not all">
+  <link rel="stylesheet" href="presentation.css">
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -23,12 +24,15 @@
     </a>
     <nav class="desktop-nav" aria-label="Navigation principale">
       <a href="#messes">Messes</a><a href="#activites">Activités</a><a href="#communaute">Communauté</a><a href="#patrimoine">Patrimoine & musée</a><a href="#contact">Nous joindre</a>
+      <div class="font-switch font-switch-desktop" role="group" aria-label="Comparer les polices"><span>Police</span><button type="button" data-font-option="1" aria-label="Police 1, version chaleureuse" aria-pressed="true">1</button><button type="button" data-font-option="2" aria-label="Police 2, version classique" aria-pressed="false">2</button></div>
     </nav>
     <a class="header-donate" href="#don">Faire un don <span aria-hidden="true">↗</span></a>
     <button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Ouvrir le menu"><span></span><span></span></button>
   </header>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile" hidden>
+    <div class="mobile-nav-top"><span>Menu</span><button class="menu-close" type="button" aria-label="Fermer le menu">×</button></div>
     <a href="#messes">Messes</a><a href="#activites">Activités</a><a href="#communaute">Communauté</a><a href="#patrimoine">Patrimoine & musée</a><a href="#contact">Nous joindre</a><a href="#don">Faire un don</a>
+    <div class="mobile-nav-options"><span class="font-switch-heading">Comparer les polices</span><div class="font-switch font-switch-mobile" role="group" aria-label="Comparer les polices"><button type="button" data-font-option="1" aria-pressed="true">Police 1</button><button type="button" data-font-option="2" aria-pressed="false">Police 2</button></div></div>
   </nav>
 
   <main id="contenu">
