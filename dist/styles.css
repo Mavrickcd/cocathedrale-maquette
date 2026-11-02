@@ -22,3 +22,9 @@
 @media(max-width:1050px){.calendar-top h3{font-size:27px}}
 .hero-shade::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,26,45,.38),transparent 25%)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+.hero-slides{position:absolute;inset:0}.hero-slide{background-size:cover;background-repeat:no-repeat;background-position:center;opacity:0;transform:scale(1.001);transition:opacity 1.4s ease-in-out,transform 6s ease-out}.hero-slide.is-active{opacity:1;transform:scale(1.05)}.hero-slide-clocher{background-image:url('assets/hero-clocher-desktop.jpg');background-position:center 40%}.hero-slide-nef{background-image:url('assets/hero-nef-desktop.jpg')}.hero-slide-nuit{background-image:url('assets/hero-nuit-desktop.jpg');background-position:center 35%}
+@media(max-width:760px){.hero-slide-clocher{background-image:url('assets/hero-clocher-mobile.jpg');background-position:center top}.hero-slide-nef{background-image:url('assets/hero-nef-mobile.jpg');background-position:center top}.hero-slide-nuit{background-image:url('assets/hero-nuit-mobile.jpg');background-position:center top}}
+@media(prefers-reduced-motion:reduce){.hero-slide{transition:opacity .6s ease}.hero-slide.is-active{transform:none}}
+
+/* Police 1 : « Vieux-Longueuil. » sur sa propre ligne */
+[data-font="1"] .hero h1 em{display:block}

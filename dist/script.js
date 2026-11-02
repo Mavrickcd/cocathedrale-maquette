@@ -7,7 +7,8 @@ const fontButtons = document.querySelectorAll('[data-font-option]');
 
 function setFontOption(option) {
   const selected = option === '2' ? '2' : '1';
-  typographyOption2.media = selected === '2' ? 'all' : 'not all';
+  document.documentElement.dataset.font = selected;
+  typographyOption2.media =selected === '2' ? 'all' : 'not all';
   fontButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.fontOption === selected)));
   try { localStorage.setItem('cocathedrale-font-option', selected); } catch (e) { }
 }
@@ -204,3 +205,33 @@ document.getElementById('contact-form').addEventListener('submit', e => {
   response.textContent = 'Votre demande a été préparée et téléchargée. Vous pouvez la transmettre au bureau paroissial.';
   response.hidden = false;
 });
+
+const heroSlides = document.querySelectorAll('.hero-slide');
+const HERO_SLIDE_MS = 4000;
+const modeButtons = document.querySelectorAll('[data-mode-option]');
+let heroCurrent = 0;
+
+function showHeroSlide(index) {
+  heroCurrent = index;
+  heroSlides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+}
+
+// Version du site : « static » (basique, sans animation) ou « premium » (diaporama, vidéo, GSAP).
+function setMode(option) {
+  const selected = option === 'static' ? 'static' : 'premium';
+  document.documentElement.dataset.mode = selected;
+  modeButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.modeOption === selected)));
+  if (selected === 'static') showHeroSlide(0);
+  try { localStorage.setItem('cocathedrale-mode', selected); } catch (e) { }
+  document.dispatchEvent(new CustomEvent('modechange', { detail: selected }));
+}
+
+modeButtons.forEach(button => button.addEventListener('click', () => setMode(button.dataset.modeOption)));
+modeButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.modeOption === document.documentElement.dataset.mode)));
+
+if (heroSlides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  setInterval(() => {
+    if (document.hidden || document.documentElement.dataset.mode !== 'premium') return;
+    showHeroSlide((heroCurrent + 1) % heroSlides.length);
+  }, HERO_SLIDE_MS);
+}

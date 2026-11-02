@@ -1,0 +1,70 @@
+/* Deux versions de la maquette : html[data-mode="static"] (basique) et html[data-mode="premium"] (animations + vidéo). */
+
+/* ---------- Statique : aucune animation ---------- */
+html[data-mode="static"] { scroll-behavior: auto; }
+html[data-mode="static"] *,
+html[data-mode="static"] *::before,
+html[data-mode="static"] *::after { transition: none !important; animation: none !important; }
+html[data-mode="static"] .button:hover { transform: none; }
+html[data-mode="static"] .hero-slide { transform: none; }
+html[data-mode="static"] .hero-slide:not(.hero-slide-clocher) { display: none; }
+html[data-mode="static"] .hero-slide-clocher { opacity: 1; }
+html[data-mode="static"] .film-section { display: none; }
+
+/* ---------- Commun : sélecteur de version ---------- */
+.font-switch-heading-spaced { margin-top: 22px; }
+@media (min-width: 1051px) and (max-width: 1250px) {
+  .mode-switch > span, .font-switch-desktop > span { display: none; }
+}
+
+/* ---------- Section vidéo (premium seulement) ---------- */
+.film-section { display: none; }
+html[data-mode="premium"] .film-section { display: block; position: relative; background: #06182b; color: #fff; }
+.film-stage { position: relative; height: 100svh; min-height: 560px; overflow: hidden; }
+.film-frame { position: absolute; inset: 0; overflow: hidden; }
+.film-video { width: 100%; height: 100%; object-fit: cover; background: #06182b; }
+.film-shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(5, 24, 42, .78), rgba(5, 24, 42, .05) 55%), linear-gradient(90deg, rgba(5, 24, 42, .45), transparent 60%); pointer-events: none; }
+.film-caption { position: absolute; left: 0; right: 0; bottom: 0; padding-bottom: 72px; z-index: 2; }
+.film-caption .eyebrow { color: #f1d39a; margin-bottom: 18px; }
+.film-caption h2 { color: #fff; max-width: 780px; margin: 0; }
+.film-toggle { position: absolute; right: max(28px, calc((100vw - 1380px) / 2)); bottom: 40px; z-index: 3; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .7); background: rgba(6, 24, 43, .35); color: #fff; font-size: 12px; letter-spacing: -.1em; backdrop-filter: blur(6px); }
+.film-toggle:hover { background: rgba(255, 255, 255, .2); }
+.film-toggle:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+/* ---------- Premium : éléments préparés par GSAP ---------- */
+/* Titre du haut caché avant le premier affichage ; un secours le montre après 2,5 s si le script ne vient pas. */
+html.hero-pending .hero h1,
+html.hero-pending .hero-eyebrow,
+html.hero-pending .hero-lede,
+html.hero-pending .hero-actions { opacity: 0; }
+
+.split-word { display: inline-block; white-space: nowrap; perspective: 600px; }
+.split-char { display: inline-block; backface-visibility: hidden; transform-origin: 50% 0%; will-change: transform, opacity; }
+
+/* Trait qui se dessine devant les surtitres */
+html[data-mode="premium"] .eyebrow::before { content: ''; display: inline-block; width: 34px; height: 1px; margin-right: 12px; vertical-align: middle; background: currentColor; transform-origin: left center; }
+
+/* Soulignement qui se trace + flèche qui invite */
+html[data-mode="premium"] .line-link,
+html[data-mode="premium"] .donation-more { border-bottom: 0; background: linear-gradient(currentColor, currentColor) left bottom / 0% 1px no-repeat; transition: background-size 1.3s cubic-bezier(.22, .61, .24, 1), color .2s; }
+html[data-mode="premium"] .line-link.is-drawn,
+html[data-mode="premium"] .donation-more.is-drawn { background-size: 100% 1px; }
+html[data-mode="premium"] .line-link.is-drawn > span[aria-hidden] { animation: arrow-nudge 3.2s 1.5s ease-in-out infinite; }
+@keyframes arrow-nudge { 0%, 78%, 100% { transform: translateX(0); } 88% { transform: translateX(6px); } }
+
+/* Photos : cadre qui masque le zoom */
+html[data-mode="premium"] .community-image,
+html[data-mode="premium"] .heritage-image { overflow: hidden; }
+html[data-mode="premium"] .donation-backdrop { inset: -12% 0; }
+
+@media (max-width: 760px) {
+  .film-stage { height: 78svh; min-height: 440px; }
+  .film-caption { padding-bottom: 44px; }
+  .film-toggle { right: 18px; bottom: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-mode="premium"] .line-link,
+  html[data-mode="premium"] .donation-more { background-size: 100% 1px; }
+  html[data-mode="premium"] .line-link.is-drawn > span[aria-hidden] { animation: none; }
+}
