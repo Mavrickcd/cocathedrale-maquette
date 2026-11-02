@@ -28,3 +28,6 @@
 
 /* Police 1 : « Vieux-Longueuil. » sur sa propre ligne */
 [data-font="1"] .hero h1 em{display:block}
+.dome-film{position:relative;overflow:hidden;background:#07090c;height:min(56.25vw,92vh);min-height:420px}.dome-film-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#07090c center/cover no-repeat}.dome-film::after{content:"";position:absolute;inset:0;background:rgba(7,9,12,.12);pointer-events:none}.dome-film-fade{position:absolute;inset:0;background:#07090c;opacity:0;pointer-events:none;will-change:opacity}html[data-mode="static"] .dome-film-fade{opacity:0}
+@media(max-width:760px){.dome-film{height:min(177.78vw,92svh);min-height:0}}
+@media(prefers-reduced-motion:reduce){.dome-film-fade{opacity:0}}

@@ -235,3 +235,67 @@ if (heroSlides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce
     showHeroSlide((heroCurrent + 1) % heroSlides.length);
   }, HERO_SLIDE_MS);
 }
+
+/* Coupole : vidéo en boucle, fondu au noir à chaque début et fin pour masquer le raccord. */
+const domeFilm = document.querySelector('.dome-film');
+if (domeFilm) {
+  const video = domeFilm.querySelector('.dome-film-video');
+  const fade = domeFilm.querySelector('.dome-film-fade');
+  const DOME_FADE_S = 1.2;
+  const mobileQuery = window.matchMedia('(max-width: 760px)');
+  const reducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let domeVisible = false;
+  let domeFrame = 0;
+  let domeLooped = false; // Premier passage : l'image fixe est la première image, donc pas de fondu d'entrée.
+  let domeLastTime = 0;
+
+  const canAnimate = () => document.documentElement.dataset.mode === 'premium' && !reducedQuery.matches;
+
+  const setSource = () => {
+    const format = mobileQuery.matches ? 'mobile' : 'desktop';
+    video.poster = video.dataset['poster' + (format === 'mobile' ? 'Mobile' : 'Desktop')];
+    video.style.backgroundImage = `url('${video.poster}')`;
+    const src = video.dataset['src' + (format === 'mobile' ? 'Mobile' : 'Desktop')];
+    if (video.dataset.current === src) return;
+    video.dataset.current = src;
+    if (canAnimate() && domeVisible) { video.src = src; video.load(); }
+  };
+
+  const tick = () => {
+    const d = video.duration;
+    if (d) {
+      const t = video.currentTime;
+      if (t < domeLastTime) domeLooped = true;
+      domeLastTime = t;
+      const fadeIn = domeLooped ? t / DOME_FADE_S : 1;
+      fade.style.opacity = String(1 - Math.max(0, Math.min(1, fadeIn, (d - t) / DOME_FADE_S)));
+    }
+    domeFrame = requestAnimationFrame(tick);
+  };
+
+  const update = () => {
+    cancelAnimationFrame(domeFrame);
+    if (!canAnimate()) {
+      video.pause();
+      fade.style.opacity = '';
+      return;
+    }
+    if (!domeVisible) { video.pause(); return; }
+    if (video.getAttribute('src') !== video.dataset.current) { video.src = video.dataset.current; video.load(); }
+    const play = video.play();
+    if (play) play.catch(() => { fade.style.opacity = '0'; });
+    domeFrame = requestAnimationFrame(tick);
+  };
+
+  video.addEventListener('error', () => { cancelAnimationFrame(domeFrame); fade.style.opacity = '0'; });
+
+  setSource();
+  new IntersectionObserver(entries => {
+    domeVisible = entries[0].isIntersecting;
+    update();
+  }, { threshold: 0.15 }).observe(domeFilm);
+  mobileQuery.addEventListener('change', () => { setSource(); update(); });
+  reducedQuery.addEventListener('change', update);
+  document.addEventListener('modechange', update);
+  document.addEventListener('visibilitychange', () => (document.hidden ? video.pause() : update()));
+}
