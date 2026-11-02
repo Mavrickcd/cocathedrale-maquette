@@ -1,0 +1,174 @@
+/* Grille typographique de la maquette — ordinateur et mobile. */
+:root {
+  --sans: 'Source Sans 3', Arial, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --display: 'Cinzel', Georgia, serif;
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+h1, h2, h1 em, h2 em {
+  font-family: var(--display);
+  font-weight: 600;
+  font-style: normal;
+}
+
+.hero h1 {
+  max-width: 800px;
+  font: 600 52px/1.16 var(--display);
+  letter-spacing: -.025em;
+}
+
+h2,
+.section-head h2,
+.community-copy h2,
+.heritage-copy h2,
+.donation-copy h2,
+.volunteer-layout h2,
+.info-dialog h2 {
+  font: 600 36px/1.2 var(--display);
+  letter-spacing: -.02em;
+}
+
+h3,
+.event-copy h3,
+.calendar-top h3,
+.mass-place h3,
+.donation-panel h3 {
+  font: 600 30px/1.16 var(--serif);
+}
+
+h4,
+.quick-links strong {
+  font: 600 22px/1.25 var(--sans);
+}
+
+.hero-lede,
+.section-head > p {
+  font: 400 21px/1.5 var(--sans);
+}
+
+.masses-intro > p:not(.eyebrow),
+.community-copy p:not(.eyebrow),
+.heritage-copy > p:not(.eyebrow),
+.donation-copy > p:not(.eyebrow),
+.volunteer-layout p:not(.eyebrow),
+.contact-copy > p:not(.eyebrow),
+.donation-panel > p,
+.event-copy p,
+.info-dialog p {
+  font: 400 18px/1.5 var(--sans);
+}
+
+.quick-links small,
+.mass-times p,
+.mass-times strong,
+.footer-col a,
+.footer-col span,
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  font-size: 16px;
+}
+
+.mass-times strong {
+  font-weight: 600;
+}
+
+blockquote,
+.biblical-quote {
+  font: italic 500 28px/1.3 var(--serif);
+}
+
+.desktop-nav a,
+.mobile-nav a {
+  font: 600 16px/1.3 var(--sans);
+}
+
+.button,
+.header-donate,
+.line-link,
+.text-link,
+.donation-more,
+.don-frequency button,
+.don-amounts button,
+.stack-links a {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.eyebrow,
+.event-category,
+.event-copy small,
+.mass-index,
+.calendar-legend,
+.brand small,
+.hero-photo-credit,
+.image-caption,
+.contact-form label,
+.footer-bottom {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.calendar-top {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 760px) {
+  .hero h1 {
+    max-width: 600px;
+    font-size: 34px;
+    line-height: 1.2;
+  }
+
+  h2,
+  .section-head h2,
+  .community-copy h2,
+  .heritage-copy h2,
+  .donation-copy h2,
+  .volunteer-layout h2,
+  .info-dialog h2 {
+    font-size: 28px;
+  }
+
+  h3,
+  .event-copy h3,
+  .calendar-top h3,
+  .mass-place h3,
+  .donation-panel h3 {
+    font-size: 26px;
+  }
+
+  h4,
+  .quick-links strong {
+    font-size: 20px;
+  }
+
+  .hero-lede,
+  .section-head > p {
+    font-size: 19px;
+  }
+
+  blockquote,
+  .biblical-quote {
+    font-size: 24px;
+  }
+
+  .hero-actions .button,
+  .don-amounts button {
+    font-size: 16px;
+  }
+
+  .hero-eyebrow {
+    max-width: 320px;
+    letter-spacing: .1em;
+  }
+}
