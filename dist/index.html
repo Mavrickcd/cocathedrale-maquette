@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#163568">
+  <meta name="description" content="Découvrez la Cocathédrale Saint-Antoine-de-Padoue au cœur du Vieux-Longueuil : célébrations, vie communautaire, patrimoine et activités.">
+  <title>Cocathédrale Saint-Antoine-de-Padoue — Vieux-Longueuil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/cocathedrale-hero.jpg">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header class="site-header" id="accueil">
+    <a class="brand" href="#accueil" aria-label="Cocathédrale Saint-Antoine-de-Padoue, accueil">
+      <span class="brand-symbol" aria-hidden="true">✝</span>
+      <span><strong>Cocathédrale Saint-Antoine-de-Padoue</strong><small>Vieux-Longueuil · Québec</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navigation principale">
+      <a href="#messes">Messes</a><a href="#activites">Activités</a><a href="#communaute">Communauté</a><a href="#patrimoine">Patrimoine & musée</a><a href="#contact">Nous joindre</a>
+    </nav>
+    <a class="header-donate" href="#don">Faire un don <span aria-hidden="true">↗</span></a>
+    <button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Ouvrir le menu"><span></span><span></span></button>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile" hidden>
+    <a href="#messes">Messes</a><a href="#activites">Activités</a><a href="#communaute">Communauté</a><a href="#patrimoine">Patrimoine & musée</a><a href="#contact">Nous joindre</a><a href="#don">Faire un don</a>
+  </nav>
+
+  <main id="contenu">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-image" role="img" aria-label="Vue de la cocathédrale dans la lumière du jour"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-content wrap">
+        <p class="eyebrow hero-eyebrow">Un patrimoine vivant au cœur de Longueuil</p>
+        <h1 id="hero-title">Un lieu vivant<br>au cœur du <em>Vieux-Longueuil.</em></h1>
+        <p class="hero-lede">Une communauté accueillante, un patrimoine à découvrir.</p>
+        <div class="hero-actions"><a class="button button-gold" href="#patrimoine">Découvrir la cocathédrale <span aria-hidden="true">↗</span></a><a class="text-link text-link-light" href="#messes">Voir les horaires des messes <span aria-hidden="true">→</span></a></div>
+      </div>
+      <a class="hero-scroll" href="#activites"><span>Explorer</span><span aria-hidden="true">↓</span></a>
+      <span class="hero-photo-credit">Vieux-Longueuil · Québec</span>
+    </section>
+
+    <div class="quick-links" aria-label="Accès rapides">
+      <a href="#messes"><span class="quick-num">01</span><span><strong>Horaires des messes</strong><small>Deux lieux pour se rassembler</small></span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+      <a href="#activites"><span class="quick-num">02</span><span><strong>Activités à venir</strong><small>Se retrouver, partager, participer</small></span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+      <a href="#patrimoine"><span class="quick-num">03</span><span><strong>Musée & patrimoine</strong><small>Découvrir l’histoire du lieu</small></span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+    </div>
+
+    <section class="events-section section-pad" id="activites" aria-labelledby="events-title">
+      <div class="wrap">
+        <div class="section-head events-head">
+          <div><p class="eyebrow">La vie de la cocathédrale</p><h2 id="events-title">Des moments pour <em>se retrouver.</em></h2></div>
+          <p>Rencontres, musique et initiatives qui font vivre notre communauté.</p>
+        </div>
+        <div class="events-layout">
+          <div class="event-list" aria-label="Prochaines activités">
+            <article class="event-row"><div class="event-date"><strong>08</strong><span>NOV</span></div><div class="event-copy"><span class="event-category">Musique & patrimoine</span><h3>Concert à la cocathédrale</h3><p>Une soirée pour découvrir la richesse musicale du lieu.</p><small>Dimanche 8 novembre · Cocathédrale</small></div><button class="event-open" type="button" data-event="concert" aria-label="En savoir plus sur le concert">↗</button></article>
+            <article class="event-row"><div class="event-date"><strong>15</strong><span>NOV</span></div><div class="event-copy"><span class="event-category">Campagne de financement</span><h3>Vente de fromages</h3><p>Un rendez-vous gourmand pour soutenir les activités paroissiales.</p><small>Dimanche 15 novembre · Salle paroissiale</small></div><button class="event-open" type="button" data-event="fromages" aria-label="En savoir plus sur la vente de fromages">↗</button></article>
+            <article class="event-row"><div class="event-date"><strong>22</strong><span>NOV</span></div><div class="event-copy"><span class="event-category">Vie communautaire</span><h3>Café-rencontre du dimanche</h3><p>Un moment simple pour jaser après la célébration.</p><small>Dimanche 22 novembre · Salle paroissiale</small></div><button class="event-open" type="button" data-event="cafe" aria-label="En savoir plus sur le café-rencontre">↗</button></article>
+            <div class="more-events" id="more-events" hidden>
+              <article class="event-row"><div class="event-date"><strong>29</strong><span>NOV</span></div><div class="event-copy"><span class="event-category">Communauté</span><h3>Rencontre des bénévoles</h3><p>Une occasion de découvrir les façons de participer.</p><small>Dimanche 29 novembre · Cocathédrale</small></div><button class="event-open" type="button" data-event="benevoles" aria-label="En savoir plus sur la rencontre des bénévoles">↗</button></article>
+            </div>
+            <button class="line-link" id="all-events" type="button" aria-expanded="false">Voir toutes les activités <span aria-hidden="true">↗</span></button>
+          </div>
+          <aside class="calendar" aria-label="Calendrier des activités">
+            <div class="calendar-top"><div><span class="eyebrow">Le calendrier</span><h3 id="calendar-month">Novembre 2026</h3></div><div class="calendar-controls"><button type="button" id="prev-month" aria-label="Mois précédent">←</button><button type="button" id="next-month" aria-label="Mois suivant">→</button></div></div>
+            <div class="calendar-weekdays" aria-hidden="true"><span>D</span><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span></div>
+            <div class="calendar-days" id="calendar-days"></div>
+            <div class="calendar-legend"><span class="legend-dot"></span> Activité à venir</div>
+            <p class="calendar-note">Un calendrier vivant pour ne rien manquer de la vie paroissiale.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="masses-section section-pad" id="messes" aria-labelledby="masses-title">
+      <div class="wrap masses-layout">
+        <div class="masses-intro"><p class="eyebrow">Célébrer ensemble</p><h2 id="masses-title">Une place pour <em>chacun.</em></h2><p>Deux églises, une même communauté. Retrouvez les célébrations de la semaine en un coup d’œil.</p><a class="line-link" href="#contact">Voir tous les horaires <span aria-hidden="true">↗</span></a></div>
+        <div class="masses-table">
+          <div class="mass-place"><div><span class="mass-index">01 / Lieu principal</span><h3>Cocathédrale Saint-Antoine-de-Padoue</h3></div><div class="mass-times"><p><span>En semaine</span><strong>16 h 30</strong></p><p><span>Samedi</span><strong>16 h 30</strong></p><p><span>Dimanche</span><strong>9 h · 10 h 45</strong></p></div></div>
+          <div class="mass-place"><div><span class="mass-index">02 / Deuxième lieu</span><h3>Église Sacré-Cœur-de-Jésus</h3></div><div class="mass-times"><p><span>Samedi</span><strong>16 h</strong></p><p><span>Dimanche</span><strong>11 h</strong></p></div></div>
+          <p class="mass-footnote">Veuillez confirmer les horaires avant votre visite.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="community-section" id="communaute" aria-labelledby="community-title">
+      <div class="community-image"><img src="assets/communaute.jpg" alt="Des personnes de plusieurs générations se retrouvent autour d’un café" loading="lazy"></div>
+      <div class="community-copy"><div class="copy-inner"><p class="eyebrow">La communauté</p><h2 id="community-title">Plus qu’un lieu.<br><em>Des liens qui durent.</em></h2><p>La cocathédrale vit au rythme de celles et ceux qui y entrent. On s’y rencontre, on partage un moment, on trouve sa place.</p><div class="stack-links"><a href="#activites">Participer aux activités <span aria-hidden="true">↗</span></a><a href="#benevolat">Découvrir le bénévolat <span aria-hidden="true">↗</span></a></div></div></div>
+    </section>
+
+    <section class="photo-strip" id="gallery" aria-label="Regards sur la cocathédrale"><div class="strip-photo strip-1" role="img" aria-label="Statue en pierre"></div><div class="strip-photo strip-2" role="img" aria-label="Vitrail coloré"></div><div class="strip-photo strip-3" role="img" aria-label="Grand orgue de la cocathédrale"></div><div class="strip-photo strip-4" role="img" aria-label="Architecture de la cocathédrale"></div></section>
+
+    <section class="heritage-section section-pad" id="patrimoine" aria-labelledby="heritage-title"><div class="wrap heritage-layout"><div class="heritage-copy"><p class="eyebrow">Patrimoine & découverte</p><h2 id="heritage-title">Un lieu qui raconte <em>Longueuil.</em></h2><p>La pierre, la lumière, l’orgue et les œuvres racontent une histoire qui continue de s’écrire. Venez prendre le temps de regarder.</p><div class="heritage-links"><a href="#gallery">L’histoire et l’architecture <span>↗</span></a><a href="#gallery">Le musée <span>↗</span></a><a href="#gallery">La crypte <span>↗</span></a></div><a class="button button-outline" href="#gallery">Découvrir notre patrimoine <span aria-hidden="true">↗</span></a></div><div class="heritage-image"><img src="assets/interieur-orgue.jpg" alt="Intérieur lumineux d’une église patrimoniale avec vitraux et orgue" loading="lazy"><span class="image-caption">La beauté du lieu se découvre dans les détails.</span></div></div></section>
+
+    <section class="donation-section section-pad" id="don" aria-labelledby="don-title"><div class="donation-backdrop"></div><div class="wrap donation-layout"><div class="donation-copy"><p class="eyebrow">Soutenir la paroisse</p><h2 id="don-title">Assurons l’avenir <em>ensemble.</em></h2><p>Votre générosité aide à faire vivre la communauté et à prendre soin d’un lieu patrimonial unique au cœur du Vieux-Longueuil.</p><a class="donation-more" href="#contact">Découvrir les façons de soutenir la paroisse <span aria-hidden="true">↗</span></a></div><div class="donation-panel"><h3>Je souhaite faire un don</h3><p>Chaque geste compte. Choisissez la façon qui vous convient.</p><div class="don-frequency" role="group" aria-label="Fréquence du don"><button type="button" class="is-active" data-frequency="unique" aria-pressed="true">Don unique</button><button type="button" data-frequency="mensuel" aria-pressed="false">Don mensuel</button></div><div class="don-amounts" role="group" aria-label="Montant du don"><button type="button" data-amount="25" aria-pressed="false">25 $</button><button type="button" data-amount="50" aria-pressed="true" class="is-active">50 $</button><button type="button" data-amount="100" aria-pressed="false">100 $</button><button type="button" data-amount="other" aria-pressed="false">Autre</button></div><label class="custom-amount" id="custom-amount" hidden>Votre montant <input id="custom-input" type="number" min="1" inputmode="decimal" placeholder="Montant en dollars"></label><button class="button button-gold donation-submit" id="donation-submit" type="button">Continuer vers le don <span aria-hidden="true">↗</span></button></div></div></section>
+
+    <section class="volunteer-section section-pad" id="benevolat" aria-labelledby="volunteer-title"><div class="wrap volunteer-layout"><div><p class="eyebrow">Prendre part à la vie du lieu</p><h2 id="volunteer-title">Votre temps peut faire <em>une différence.</em></h2></div><div><p>Un accueil, une activité, une voix dans la chorale, un coup de main offert à la communauté : il y a mille façons de participer.</p><a class="button button-blue" href="#contact">Devenir bénévole <span aria-hidden="true">↗</span></a></div></div></section>
+
+    <section class="services-section section-pad" id="services" aria-labelledby="services-title"><div class="wrap"><div class="section-head"><div><p class="eyebrow">À chaque étape</p><h2 id="services-title">Services & <em>sacrements.</em></h2></div><p>Nous sommes là pour vous accompagner dans les moments qui comptent.</p></div><div class="service-links"><a href="#contact"><span>Baptême</span><span aria-hidden="true">↗</span></a><a href="#contact"><span>Mariage</span><span aria-hidden="true">↗</span></a><a href="#contact"><span>Funérailles</span><span aria-hidden="true">↗</span></a><a href="#contact"><span>Certificats</span><span aria-hidden="true">↗</span></a></div></div></section>
+
+    <section class="contact-section section-pad" id="contact" aria-labelledby="contact-title"><div class="wrap contact-layout"><div class="contact-copy"><p class="eyebrow">Nous joindre</p><h2 id="contact-title">Une question?<br><em>Parlons-en.</em></h2><p>Pour une célébration, une visite, une demande de service ou simplement pour prendre contact, écrivez-nous.</p><div class="contact-address"><span>Cocathédrale Saint-Antoine-de-Padoue</span><strong>55, rue Sainte-Élisabeth<br>Longueuil (Québec)</strong></div></div><form class="contact-form" id="contact-form"><label>Votre nom<input name="nom" autocomplete="name" required placeholder="Nom complet"></label><label>Votre courriel<input name="courriel" type="email" autocomplete="email" required placeholder="vous@exemple.com"></label><label>Votre demande<select name="sujet" required><option value="">Choisir un sujet</option><option>Mariage</option><option>Baptême</option><option>Funérailles</option><option>Certificat</option><option>Bénévolat</option><option>Autre demande</option></select></label><label>Votre message<textarea name="message" rows="4" required placeholder="Parlez-nous brièvement de votre demande"></textarea></label><button class="button button-blue" type="submit">Préparer ma demande <span aria-hidden="true">↗</span></button><p class="form-response" id="form-response" role="status" hidden></p></form></div></section>
+  </main>
+
+  <footer class="site-footer"><div class="wrap footer-top"><div class="footer-brand"><span class="footer-cross">✝</span><strong>Cocathédrale Saint-Antoine-de-Padoue</strong><small>Un lieu vivant au cœur du Vieux-Longueuil.</small></div><div class="footer-col"><strong>Explorer</strong><a href="#messes">Messes</a><a href="#activites">Activités</a><a href="#communaute">Communauté</a><a href="#patrimoine">Patrimoine & musée</a></div><div class="footer-col"><strong>Participer</strong><a href="#don">Faire un don</a><a href="#benevolat">Bénévolat</a><a href="#services">Services & sacrements</a><a href="#contact">Nous joindre</a></div><div class="footer-col"><strong>Nos lieux</strong><span>Cocathédrale Saint-Antoine-de-Padoue</span><span>Église Sacré-Cœur-de-Jésus</span></div></div><div class="wrap footer-bottom"><span>© 2026 Paroisse Saint-Antoine-de-Padoue</span><span>Vieux-Longueuil, Québec</span></div></footer>
+
+  <dialog id="info-dialog" class="info-dialog"><button class="dialog-close" type="button" aria-label="Fermer">×</button><span class="eyebrow" id="dialog-category"></span><h2 id="dialog-title"></h2><p id="dialog-body"></p><a class="button button-blue" href="#contact" id="dialog-link">Nous joindre <span aria-hidden="true">↗</span></a></dialog>
+</body>
+</html>
