@@ -200,7 +200,8 @@
         // Secours si la vidéo ne peut pas être lue : fondu des portes fermées vers la nef.
         const endImg = document.querySelector('.film-end');
         let fallback = !video.canPlayType('video/mp4; codecs="avc1.640028"');
-        video.querySelector('source').addEventListener('error', () => { fallback = true; seek(); });
+        const sources = [...video.querySelectorAll('source')];
+        sources[sources.length - 1].addEventListener('error', () => { fallback = true; seek(); });
         const state = { t: 0 };
         const seek = () => {
           if (fallback) {
